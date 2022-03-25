@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import {Profile} from "./entities/profile.entity";
+import {SearchRequest} from "../search/entities/search-request.entity";
 
 @Injectable()
 export class ProfileService {
@@ -14,7 +15,7 @@ export class ProfileService {
     }
   }
 
-  async update(id: string, s: string): Promise<void> {
+  async update(id: string, request: SearchRequest): Promise<void> {
     try {
       console.log("Successfully update profile");
     } catch (err) {
