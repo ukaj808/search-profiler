@@ -1,5 +1,3 @@
-import {Result} from "./result.entity";
-
 export class SearchRequest{
 
     searchStr: string;
