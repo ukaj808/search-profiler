@@ -1,32 +1,26 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
-import {Profile} from "./entities/profile.entity";
+import {Profile, ProfileDocument} from "./schemas/profile.schema";
 import {SearchRequest} from "../search/entities/search-request.entity";
+import {InjectModel} from "@nestjs/mongoose";
+import { Model } from 'mongoose';
 
 @Injectable()
 export class ProfileService {
+  constructor(@InjectModel(Profile.name) private profileModel: Model<ProfileDocument>) {}
 
-  async create(createProfileDto: CreateProfileDto): Promise<string> {
-    try {
-      console.log("Successfully created profile");
-      return createProfileDto.profile.id;
-    } catch (err) {
-      console.error("Failed to create profile");
-    }
+  async create(searchRequest: SearchRequest) {
+    let createProfileDto: CreateProfileDto = new CreateProfileDto(searchRequest);
+    const createdProfile = new this.profileModel(createProfileDto);
+    return createdProfile.save();
   }
 
-  async update(id: string, request: SearchRequest): Promise<void> {
-    try {
-      console.log("Successfully update profile");
-    } catch (err) {
-      console.error("Failed to update profile");
-    }
+  async update(request: SearchRequest) {
+    return this.profileModel.findByIdAndUpdate({_id: request.profileId}, {$push: {"searches": request.searchStr}}).exec();
   }
 
-  async findOne(id: string): Promise<Profile> {
-    return new Profile("test", "test");
+  async findOne(id: string) {
+    return this.profileModel.findOne({ _id: id }).exec();
   }
-
-
 
 }

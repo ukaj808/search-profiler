@@ -1,8 +1,8 @@
 import {Injectable} from '@nestjs/common';
 import {ProfileService} from "../profile/profile.service";
-import {CreateProfileDto} from "../profile/dto/create-profile.dto";
 import {SearchResult} from "./entities/search-result.entity";
 import {SearchRequest} from "./entities/search-request.entity";
+import {Document} from "mongoose";
 
 @Injectable()
 export class SearchService {
@@ -12,14 +12,16 @@ export class SearchService {
     async search(request: SearchRequest): Promise<SearchResult> {
 
         if (request.profileId) {
-            this.profileService.update(request.profileId, request).then(() => {
+            this.profileService.update(request).then(() => {
                 console.log(`Successfully profiled this search against id ${request.profileId}`)
-            }).catch(() => {
+            }).catch((err) => {
+                console.log(err);
                 console.log(`Failed to profile this search against id ${request.profileId}`)
             });
         } else {
-            let createProfileDto: CreateProfileDto = new CreateProfileDto(request);
-            request.profileId = await this.profileService.create(createProfileDto);
+            console.log("Creating new profile...")
+            let document: Document = await this.profileService.create(request);
+            request.profileId = document.id;
         }
 
         let searchResults = await [];

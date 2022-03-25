@@ -1,12 +1,13 @@
-import {Profile} from "../entities/profile.entity";
 import {SearchRequest} from "../../search/entities/search-request.entity";
 
 export class CreateProfileDto {
 
-    profile: Profile;
+    type: string;
+    searches: string[];
 
     constructor(searchRequest: SearchRequest) {
-        this.profile = new Profile(searchRequest.type, searchRequest.searchStr);
+        this.type = searchRequest.type;
+        this.searches = [searchRequest.searchStr];
     }
 
 }

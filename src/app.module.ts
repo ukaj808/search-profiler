@@ -1,13 +1,20 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ProfileModule } from './profile/profile.module';
+import {Module} from '@nestjs/common';
+import {AppController} from './app.controller';
+import {AppService} from './app.service';
+import {ProfileModule} from './profile/profile.module';
 import {SearchModule} from "./search/search.module";
 import {MongooseModule} from "@nestjs/mongoose";
+import {ConfigModule} from "@nestjs/config";
 
 @Module({
-  imports: [ProfileModule, SearchModule, MongooseModule.forRoot('mongodb://localhost/nest')],
-  controllers: [AppController],
-  providers: [AppService],
+    imports: [ProfileModule, SearchModule,
+        ConfigModule.forRoot({
+            envFilePath: '.development.env',
+        }),
+        MongooseModule.forRoot('mongodb+srv://search:admin@cluster0.vb07y.mongodb.net/search?retryWrites=true&w=majority'),
+    ],
+    controllers: [AppController],
+    providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+}
