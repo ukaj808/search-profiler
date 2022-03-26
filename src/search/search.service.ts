@@ -3,10 +3,16 @@ import {ProfileService} from "../profile/profile.service";
 import {SearchResult} from "./entities/search-result.entity";
 import {SearchRequest} from "./entities/search-request.entity";
 import {Document} from "mongoose";
+import {CocktailDbService} from "./cocktaildb/cocktaildb.service";
+import {CocktailDbMapper} from "./cocktaildb/cocktaildb.mapper";
+import {firstValueFrom} from "rxjs";
+import {CocktailResult} from "./entities/result.entity";
 
 @Injectable()
 export class SearchService {
-    constructor(private readonly profileService: ProfileService) {
+    constructor(private readonly profileService: ProfileService,
+                private readonly cocktailDbService: CocktailDbService,
+                private readonly cocktailDbMapper: CocktailDbMapper) {
     }
 
     async search(request: SearchRequest): Promise<SearchResult> {
@@ -15,7 +21,6 @@ export class SearchService {
             this.profileService.update(request).then(() => {
                 console.log(`Successfully profiled this search against id ${request.profileId}`)
             }).catch((err) => {
-                console.log(err);
                 console.log(`Failed to profile this search against id ${request.profileId}`)
             });
         } else {
@@ -24,8 +29,15 @@ export class SearchService {
             request.profileId = document.id;
         }
 
-        let searchResults = await [];
-        return new SearchResult(request.profileId, searchResults);
+        switch (request.type) {
+            case "cocktail":
+                let cocktailResult: CocktailResult =
+                    await firstValueFrom(this.cocktailDbService.search(request.searchStr, request.category));
+                return this.cocktailDbMapper.processCocktailSearchResults(request.profileId, cocktailResult);
+        }
+
+        throw new Error();
     }
+
 
 }

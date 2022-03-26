@@ -1,9 +1,9 @@
-export class Result {
+import {Ingredient} from "../cocktaildb/model/ingredient.model";
+import {Drink} from "../cocktaildb/model/drink.model";
 
-    url: string;
+export interface CocktailResult {
 
-    constructor(url: string) {
-        this.url = url;
-    }
+    drinks?: Drink[];
+    ingredients?: Ingredient[];
 
 }
