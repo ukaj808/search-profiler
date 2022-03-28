@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { ProfileService } from './profile.service';
 
 @Controller('profile')
@@ -9,5 +9,4 @@ export class ProfileController {
   findOne(@Param('id') id: string) {
     return this.profileService.findOne(id);
   }
-
 }
