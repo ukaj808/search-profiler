@@ -1,7 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { SearchService } from './search.service';
-import { SearchResults } from './entities/search-result.entity';
-import { SearchRequest } from './entities/search-request.entity';
+import {SearchRequest, SearchResults} from "./search.api";
 
 @Controller('search')
 export class SearchController {

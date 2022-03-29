@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { ProfileService } from '../profile/profile.service';
-import { SearchResults } from './entities/search-result.entity';
-import { SearchRequest } from './entities/search-request.entity';
+
 import { Document } from 'mongoose';
 import { CocktailDbService } from './cocktaildb/cocktaildb.service';
 import { CocktailDbMapper } from './cocktaildb/cocktaildb.mapper';
 import { firstValueFrom } from 'rxjs';
-import { CocktailResult } from './entities/result.entity';
+import {CocktailResult, SearchRequest, SearchResults} from "./search.api";
+
 
 @Injectable()
 export class SearchService {

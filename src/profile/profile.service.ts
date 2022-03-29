@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { Profile, ProfileDocument } from './schemas/profile.schema';
-import { SearchRequest } from '../search/entities/search-request.entity';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import {SearchRequest} from "../search/search.api";
 
 @Injectable()
 export class ProfileService {
