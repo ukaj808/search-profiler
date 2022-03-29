@@ -1,9 +1,11 @@
-import { CocktailResult } from './result.entity';
+export interface SearchResults {
 
-export interface SearchResult {
-  profileId: string;
+    profileId: string;
+    searchItems?: SearchItem[];
 
-  cocktailResults?: CocktailResult;
+}
 
-  beerResults?: any;
+export interface SearchItem {
+    category: string;
+    items: any[];
 }

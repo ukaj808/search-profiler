@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ProfileService } from '../profile/profile.service';
-import { SearchResult } from './entities/search-result.entity';
+import { SearchResults } from './entities/search-result.entity';
 import { SearchRequest } from './entities/search-request.entity';
 import { Document } from 'mongoose';
 import { CocktailDbService } from './cocktaildb/cocktaildb.service';
@@ -16,7 +16,7 @@ export class SearchService {
     private readonly cocktailDbMapper: CocktailDbMapper,
   ) {}
 
-  async search(request: SearchRequest): Promise<SearchResult> {
+  async search(request: SearchRequest): Promise<SearchResults> {
     if (request.profileId) {
       this.profileService
         .update(request)
