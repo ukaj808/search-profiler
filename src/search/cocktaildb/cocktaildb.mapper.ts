@@ -47,7 +47,7 @@ export class CocktailDbMapper {
   private buildSearchDrinks(drinks: Drink[]): SearchDrink[] {
     const result: SearchDrink[] = [];
 
-    drinks.map((drink) => {
+    drinks?.map((drink) => {
       result.push({
         id: drink.idDrink,
         name: drink.strDrink,
@@ -69,7 +69,7 @@ export class CocktailDbMapper {
   ): SearchIngredient[] {
     const result: SearchIngredient[] = [];
 
-    ingredients.map((ingredient) => {
+    ingredients?.map((ingredient) => {
       result.push({
         id: ingredient.idIngredient,
         name: ingredient.strIngredient,
