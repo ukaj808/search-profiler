@@ -16,9 +16,30 @@ export interface SearchItem {
   items: any[];
 }
 
+export interface Filter {
+  category: string;
+  values: Map<string, string>;
+}
+
 export interface SearchRequest {
   searchStr: string;
   type: string;
   category?: string;
   profileId?: string;
+}
+
+// Our APIS drink model for much cleaner mappings; needed for filtering.
+export interface SearchDrink {
+  id: string;
+  name: string;
+  category: string;
+  ingredients: string[];
+  glass: string;
+}
+
+// Our APIS ingredient model for much cleaner mappings; needed for filtering.
+export interface SearchIngredient {
+  id: string;
+  name: string;
+  abv: number;
 }
