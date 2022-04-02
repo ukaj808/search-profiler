@@ -56,7 +56,7 @@ export class CocktailDbMapper {
         id: ingredient.idIngredient,
         name: ingredient.strIngredient,
         abv: ingredient.strABV != null ? ingredient.strABV : '0',
-        hasAlcohol: ingredient.strAlcohol,
+        hasAlcohol: ingredient.strAlcohol === 'Yes' ? 'Yes' : 'No',
       });
     });
 
