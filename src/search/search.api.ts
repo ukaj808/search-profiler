@@ -47,4 +47,5 @@ export interface SearchIngredient {
   name: string;
   abv: number;
   hasAlcohol: string;
+  imageSource: string;
 }
