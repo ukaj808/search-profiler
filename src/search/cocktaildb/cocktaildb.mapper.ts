@@ -40,6 +40,9 @@ export class CocktailDbMapper {
         glass: drink.strGlass,
         category: drink.strCategory,
         hasAlcohol: drink.strAlcoholic === 'Alcoholic' ? 'Yes' : 'No',
+        englishInstructions: drink.strInstructions,
+        thumbnailSource: drink.strDrinkThumb,
+        imageSource: drink.strImageSource,
       });
     });
 
