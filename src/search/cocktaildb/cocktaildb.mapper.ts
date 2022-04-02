@@ -6,25 +6,6 @@ import { Ingredient } from './model/ingredient.model';
 
 @Injectable()
 export class CocktailDbMapper {
-  private filterMappings: Map<string, Map<string, string[]>> = new Map([
-    [
-      'drinks',
-      new Map([
-        ['category', ['var1', 'var1', 'var1']],
-        ['ingredient', ['var1', 'var1', 'var1']],
-        ['glass', ['var1', 'var1', 'var1']],
-      ]),
-    ],
-    [
-      'ingredients',
-      new Map([
-        ['category', ['var1', 'var1', 'var1']],
-        ['ingredient', ['var1', 'var1', 'var1']],
-        ['glass', ['var1', 'var1', 'var1']],
-      ]),
-    ],
-  ]);
-
   processCocktailSearchResults(
     profileId: string,
     results: CocktailResults,
@@ -58,6 +39,8 @@ export class CocktailDbMapper {
           }),
         glass: drink.strGlass,
         category: drink.strCategory,
+        hasAlcohol:
+          drink.strAlcoholic?.toLowerCase() === 'Alcoholic'.toLowerCase(),
       });
     });
 
@@ -74,6 +57,8 @@ export class CocktailDbMapper {
         id: ingredient.idIngredient,
         name: ingredient.strIngredient,
         abv: ingredient.strABV != null ? ingredient.strABV : '0',
+        hasAlcohol:
+          ingredient.strAlcohol?.toLowerCase() === 'Yes'.toLowerCase(),
       });
     });
 
