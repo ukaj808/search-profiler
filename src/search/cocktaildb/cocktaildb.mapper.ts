@@ -73,7 +73,7 @@ export class CocktailDbMapper {
       result.push({
         id: ingredient.idIngredient,
         name: ingredient.strIngredient,
-        abv: ingredient.strABV,
+        abv: ingredient.strABV != null ? ingredient.strABV : '0',
       });
     });
 
