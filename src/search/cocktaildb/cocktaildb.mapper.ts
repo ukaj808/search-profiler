@@ -39,8 +39,7 @@ export class CocktailDbMapper {
           }),
         glass: drink.strGlass,
         category: drink.strCategory,
-        hasAlcohol:
-          drink.strAlcoholic?.toLowerCase() === 'Alcoholic'.toLowerCase(),
+        hasAlcohol: drink.strAlcoholic === 'Alcoholic' ? 'Yes' : 'No',
       });
     });
 
@@ -57,8 +56,7 @@ export class CocktailDbMapper {
         id: ingredient.idIngredient,
         name: ingredient.strIngredient,
         abv: ingredient.strABV != null ? ingredient.strABV : '0',
-        hasAlcohol:
-          ingredient.strAlcohol?.toLowerCase() === 'Yes'.toLowerCase(),
+        hasAlcohol: ingredient.strAlcohol,
       });
     });
 

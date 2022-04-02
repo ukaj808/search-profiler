@@ -3,6 +3,6 @@ export interface Ingredient {
   strIngredient: string;
   strDescription?: any;
   strType?: any;
-  strAlcohol?: any;
+  strAlcohol?: string;
   strABV?: any;
 }
