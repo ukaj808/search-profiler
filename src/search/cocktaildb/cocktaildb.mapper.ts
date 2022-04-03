@@ -61,6 +61,7 @@ export class CocktailDbMapper {
         abv: ingredient.strABV != null ? ingredient.strABV : '0',
         hasAlcohol: ingredient.strAlcohol === 'Yes' ? 'Yes' : 'No',
         imageSource: `https://www.thecocktaildb.com/images/ingredients/${ingredient.strIngredient}-Medium.png`,
+        description: ingredient.strDescription,
       });
     });
 
