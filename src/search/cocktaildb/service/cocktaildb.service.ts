@@ -3,7 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { forkJoin, map, Observable, reduce } from 'rxjs';
 import { AxiosResponse } from 'axios';
 
-import { CocktailResults } from './model/cocktail.model';
+import { CocktailResults } from '../model/cocktail.model';
 
 @Injectable()
 export class CocktailDbService {

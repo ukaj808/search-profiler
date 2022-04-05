@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { ProfileService } from '../profile/profile.service';
 
 import { Document } from 'mongoose';
-import { CocktailDbService } from './cocktaildb/cocktaildb.service';
-import { CocktailDbMapper } from './cocktaildb/cocktaildb.mapper';
+import { CocktailDbService } from './cocktaildb/service/cocktaildb.service';
+import { CocktailDbMapper } from './cocktaildb/mapper/cocktaildb.mapper';
 import { firstValueFrom } from 'rxjs';
 import { CocktailResult, SearchRequest, SearchResults } from './search.api';
 

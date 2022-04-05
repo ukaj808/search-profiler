@@ -4,7 +4,7 @@ import { HttpService } from '@nestjs/axios';
 import { CocktailDbService } from './cocktaildb.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { firstValueFrom, of } from 'rxjs';
-import { CocktailResults } from './model/cocktail.model';
+import { CocktailResults } from '../model/cocktail.model';
 import { AxiosResponse } from 'axios';
 
 describe('CocktailDbService', () => {

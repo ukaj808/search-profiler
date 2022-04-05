@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CocktailResults } from './model/cocktail.model';
-import { SearchDrink, SearchIngredient, SearchResults } from '../search.api';
-import { Drink } from './model/drink.model';
-import { Ingredient } from './model/ingredient.model';
+import { CocktailResults } from '../model/cocktail.model';
+import { SearchDrink, SearchIngredient, SearchResults } from '../../search.api';
+import { Drink } from '../model/drink.model';
+import { Ingredient } from '../model/ingredient.model';
 
 @Injectable()
 export class CocktailDbMapper {
@@ -15,11 +15,11 @@ export class CocktailDbMapper {
       searchItems: [
         {
           category: 'drinks',
-          items: this.buildSearchDrinks(results.drinks),
+          items: this.buildSearchDrinks(results?.drinks),
         },
         {
           category: 'ingredients',
-          items: this.buildSearchIngredients(results.ingredients),
+          items: this.buildSearchIngredients(results?.ingredients),
         },
       ],
     };
@@ -34,7 +34,7 @@ export class CocktailDbMapper {
         name: drink.strDrink,
         ingredients: Array.from(Object.entries(drink))
           .filter(([key, val]) => key.startsWith('strIngredient') && val)
-          .map(([key, val]) => {
+          .map(([, val]) => {
             return val as string;
           }),
         glass: drink.strGlass,
