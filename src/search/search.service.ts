@@ -5,8 +5,7 @@ import { Document } from 'mongoose';
 import { CocktailDbService } from './cocktaildb/cocktaildb.service';
 import { CocktailDbMapper } from './cocktaildb/cocktaildb.mapper';
 import { firstValueFrom } from 'rxjs';
-import {CocktailResult, SearchRequest, SearchResults} from "./search.api";
-
+import { CocktailResult, SearchRequest, SearchResults } from './search.api';
 
 @Injectable()
 export class SearchService {
