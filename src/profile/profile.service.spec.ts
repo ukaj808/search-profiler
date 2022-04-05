@@ -6,7 +6,6 @@ import { getModelToken } from '@nestjs/mongoose';
 
 describe('ProfileService', () => {
   let profileService: ProfileService;
-  let profileModelMock: any;
 
   beforeEach(async () => {
     function mockProfileModel(dto: any) {
