@@ -1,4 +1,4 @@
-import {SearchRequest} from "../../search/search.api";
+import { SearchRequest } from '../../search/search.api';
 
 export class CreateProfileDto {
   type: string;

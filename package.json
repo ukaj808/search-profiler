@@ -74,6 +74,7 @@
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
-    "setupFilesAfterEnv": ["jest-extended/all"]
+    "setupFilesAfterEnv": ["jest-extended/all"],
+    "setupFiles": ["<rootDir>/../.jest/set-env-vars.jest.js"]
   }
 }

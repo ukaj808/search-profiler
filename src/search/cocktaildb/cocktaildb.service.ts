@@ -5,10 +5,9 @@ import { AxiosResponse } from 'axios';
 
 import { CocktailResults } from './model/cocktail.model';
 
-export const search_path = '/api/json/v1/1/search.php';
-
 @Injectable()
 export class CocktailDbService {
+  search_path = '/api/json/v1/1/search.php';
   constructor(private httpService: HttpService) {}
 
   search(str: string, category?: string): Observable<CocktailResults> {
@@ -47,16 +46,22 @@ export class CocktailDbService {
   private searchByCocktailName(
     str: string,
   ): Observable<AxiosResponse<CocktailResults>> {
-    return this.httpService.get(process.env.COCKTAIL_DB_URI + search_path, {
-      params: { s: str },
-    });
+    return this.httpService.get(
+      process.env.COCKTAIL_DB_URI + this.search_path,
+      {
+        params: { s: str },
+      },
+    );
   }
 
   private searchByIngredientName(
     str: string,
   ): Observable<AxiosResponse<CocktailResults>> {
-    return this.httpService.get(process.env.COCKTAIL_DB_URI + search_path, {
-      params: { i: str },
-    });
+    return this.httpService.get(
+      process.env.COCKTAIL_DB_URI + this.search_path,
+      {
+        params: { i: str },
+      },
+    );
   }
 }

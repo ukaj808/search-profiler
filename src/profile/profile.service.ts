@@ -3,7 +3,7 @@ import { CreateProfileDto } from './dto/create-profile.dto';
 import { Profile, ProfileDocument } from './schemas/profile.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import {SearchRequest} from "../search/search.api";
+import { SearchRequest } from '../search/search.api';
 
 @Injectable()
 export class ProfileService {
