@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProfileModule } from './profile/profile.module';
@@ -16,6 +16,7 @@ import { ConfigModule } from '@nestjs/config';
     MongooseModule.forRoot(
       'mongodb+srv://search:admin@cluster0.vb07y.mongodb.net/search?retryWrites=true&w=majority',
     ),
+    CacheModule.register(),
   ],
   controllers: [AppController],
   providers: [AppService],

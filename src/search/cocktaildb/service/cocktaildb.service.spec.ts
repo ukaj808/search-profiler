@@ -3,13 +3,15 @@ import Mock = jest.Mock;
 import { HttpService } from '@nestjs/axios';
 import { CocktailDbService } from './cocktaildb.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { firstValueFrom, of } from 'rxjs';
+import { of } from 'rxjs';
 import { CocktailResults } from '../model/cocktail.model';
 import { AxiosResponse } from 'axios';
+import { CacheModule, CACHE_MANAGER } from '@nestjs/common';
 
 describe('CocktailDbService', () => {
   let cocktailDbService: CocktailDbService;
   let httpServiceMock: HttpService;
+  let cacheManager: any;
 
   beforeEach(async () => {
     const httpServiceMockedGetFunction: Mock<any, any> = jest.fn(
@@ -55,6 +57,7 @@ describe('CocktailDbService', () => {
     );
 
     const module: TestingModule = await Test.createTestingModule({
+      imports: [CacheModule.register({})],
       providers: [
         CocktailDbService,
         {
@@ -68,6 +71,7 @@ describe('CocktailDbService', () => {
 
     cocktailDbService = module.get<CocktailDbService>(CocktailDbService);
     httpServiceMock = module.get<HttpService>(HttpService);
+    cacheManager = module.get<any>(CACHE_MANAGER);
   });
 
   describe('search (with name as the category)', () => {
@@ -75,10 +79,7 @@ describe('CocktailDbService', () => {
       'should only make one get call to the cocktail db api &' +
         ' ingredients list should be empty',
       async () => {
-        const results: CocktailResults = await firstValueFrom(
-          cocktailDbService.search('test', 'name'),
-        );
-
+        await cocktailDbService.search('test', 'name');
         expect(httpServiceMock.get).toBeCalledTimes(1);
       },
     );
@@ -89,10 +90,7 @@ describe('CocktailDbService', () => {
       'should only make one get call to the cocktail db api & ' +
         'drinks list should be empty',
       async () => {
-        const results: CocktailResults = await firstValueFrom(
-          cocktailDbService.search('test', 'ingredient'),
-        );
-
+        await cocktailDbService.search('test', 'ingredient');
         expect(httpServiceMock.get).toBeCalledTimes(1);
       },
     );
@@ -100,10 +98,7 @@ describe('CocktailDbService', () => {
 
   describe('search (default all)', () => {
     it('should only make one get call to the cocktail db api', async () => {
-      const results: CocktailResults = await firstValueFrom(
-        cocktailDbService.search('test', 'all'),
-      );
-
+      await cocktailDbService.search('test', 'all');
       expect(httpServiceMock.get).toBeCalledTimes(2);
     });
   });

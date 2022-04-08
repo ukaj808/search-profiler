@@ -4,7 +4,6 @@ import { ProfileService } from '../profile/profile.service';
 import { Document } from 'mongoose';
 import { CocktailDbService } from './cocktaildb/service/cocktaildb.service';
 import { CocktailDbMapper } from './cocktaildb/mapper/cocktaildb.mapper';
-import { firstValueFrom } from 'rxjs';
 import { CocktailResult, SearchRequest, SearchResults } from './search.api';
 
 @Injectable()
@@ -37,9 +36,12 @@ export class SearchService {
 
     switch (request.type) {
       case 'cocktail':
-        const cocktailResult: CocktailResult = await firstValueFrom(
-          this.cocktailDbService.search(request.searchStr, request.category),
-        );
+        const cocktailResult: CocktailResult =
+          await this.cocktailDbService.search(
+            request.searchStr,
+            request.category,
+          );
+
         return this.cocktailDbMapper.processCocktailSearchResults(
           request.profileId,
           cocktailResult,

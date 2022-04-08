@@ -1,31 +1,44 @@
-import { Injectable } from '@nestjs/common';
+import { CACHE_MANAGER, Inject, Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { forkJoin, map, Observable, reduce } from 'rxjs';
+import { forkJoin, lastValueFrom, map, Observable } from 'rxjs';
 import { AxiosResponse } from 'axios';
+import { Cache } from 'cache-manager';
 
 import { CocktailResults } from '../model/cocktail.model';
 
 @Injectable()
 export class CocktailDbService {
   search_path = '/api/json/v1/1/search.php';
-  constructor(private httpService: HttpService) {}
+  constructor(
+    private httpService: HttpService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
+  ) {}
 
-  search(str: string, category?: string): Observable<CocktailResults> {
+  async search(str: string, category?: string): Promise<CocktailResults> {
+    const key: string = [str, category].join('#');
+    let value: CocktailResults = await this.cacheManager.get(key);
+
+    if (value != null) return Promise.resolve(value);
+
+    let cocktailResult: Observable<CocktailResults>;
+
     switch (category) {
       case 'name':
-        return this.searchByCocktailName(str).pipe(
+        cocktailResult = this.searchByCocktailName(str).pipe(
           map((res) => {
             return res.data;
           }),
         );
+        break;
       case 'ingredient':
-        return this.searchByIngredientName(str).pipe(
+        cocktailResult = this.searchByIngredientName(str).pipe(
           map((res) => {
             return res.data;
           }),
         );
+        break;
       default:
-        return forkJoin([
+        cocktailResult = forkJoin([
           this.searchByCocktailName(str),
           this.searchByIngredientName(str),
         ]).pipe(
@@ -40,7 +53,14 @@ export class CocktailDbService {
             });
           }),
         );
+        break;
     }
+
+    value = await lastValueFrom(cocktailResult);
+
+    await this.cacheManager.set(key, value, { ttl: 600 }); // 10 minutes
+
+    return Promise.resolve(value);
   }
 
   private searchByCocktailName(
