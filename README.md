@@ -36,30 +36,65 @@ npm start // This application runs on port 3002.
 ## Usage
 
 ```typescript
-
-# returns the profile for a given id
+// returns the profile for a given id
 @Get(':id')
 findOne(@Param('id') id: string): Promise<Profile>
+```
+```json
+// curl -X GET http://localhost:3002/profile/6244a768fee3d462e2277178
+{
+  "_id":"6244a768fee3d462e2277178",
+  "type":"cocktail",
+  "searches":["lemon","grape","grape","juice","eom","grass"]
+}
+```
 
-## Sample Request
-curl -X GET http://localhost:3002/profile/6244a768fee3d462e2277178
+```typescript
+/* 
+    the search request body takes a *optional* profile id and a search query (type, category, searchString)
+if no profile id is provided, it will generate one against the search and return a profile id
+along with your search results
+ */
 
-## Sample Response
-{"_id":"6244a768fee3d462e2277178","type":"cocktail","searches":["lemon","grape","grape","juice","eom","grass"],"__v":0}
-
-________________________________________________________________________________________________________________________
-
-# the search request body takes a *optional* profile id and a search query (type, category, searchString)
-# if no profile id is provided, it will generate one against the search and return a profile id
-# along with your search results
 @Post()
 search(@Body() request: SearchRequest): Promise<SearchResults> 
+```
 
-## Sample Request
-curl -i -X POST -H "Content-Type: application/json" -d "{\"searchStr\": \"whiskey so\", \"type\": \"cocktail\", \"category\": \"all\", \"profileId\": \"6244a768fee3d462e2277178\"}" http://localhost:3002/search
-
-## Sample Response
-{"profileId":"6244a768fee3d462e2277178","searchItems":[{"category":"drinks","items":[{"id":"11004","name":"Whiskey Sour","ingredients":["Blended whiskey","Lemon","Powdered sugar","Cherry","Lemon"],"glass":"Old-fashioned glass","category":"Ordinary Drink","hasAlcohol":"Yes","englishInstructions":"Shake with ice. Strain into chilled glass, garnish and serve. If served 'On the rocks', strain ingredients into old-fashioned glass filled with ice.","thumbnailSource":"https://www.thecocktaildb.com/images/media/drink/hbkfsh1589574990.jpg","imageSource":"https://commons.wikimedia.org/wiki/File:15-09-26-RalfR-WLC-0191.jpg"}]},{"category":"ingredients","items":[]}]}
+```json
+// curl -i -X POST -H "Content-Type: application/json" -d "{\"searchStr\": \"whiskey so\", \"type\": \"cocktail\", \"category\": \"all\", \"profileId\": \"6244a768fee3d462e2277178\"}" http://localhost:3002/search
+{
+   "profileId":"6244a768fee3d462e2277178",
+   "searchItems":[
+      {
+         "category":"drinks",
+         "items":[
+            {
+               "id":"11004",
+               "name":"Whiskey Sour",
+               "ingredients":[
+                  "Blended whiskey",
+                  "Lemon",
+                  "Powdered sugar",
+                  "Cherry",
+                  "Lemon"
+               ],
+               "glass":"Old-fashioned glass",
+               "category":"Ordinary Drink",
+               "hasAlcohol":"Yes",
+               "englishInstructions":"Shake with ice. Strain into chilled glass, garnish and serve. If served 'On the rocks', strain ingredients into old-fashioned glass filled with ice.",
+               "thumbnailSource":"https://www.thecocktaildb.com/images/media/drink/hbkfsh1589574990.jpg",
+               "imageSource":"https://commons.wikimedia.org/wiki/File:15-09-26-RalfR-WLC-0191.jpg"
+            }
+         ]
+      },
+      {
+         "category":"ingredients",
+         "items":[
+            
+         ]
+      }
+   ]
+}
 ```
 
 ## Run Unit Tests
