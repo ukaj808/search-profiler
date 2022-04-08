@@ -1,6 +1,6 @@
 # Search Profiler
 
-Search Profiler is a RESTful (Representational State Transfer) service that provides user search profiling on top of performing actual search requests, within the given domains. At this moment, Search Profiler only supports searches on the Cocktail domain.
+Search Profiler is a RESTful (Representational State Transfer) service that provides **asynchronous** user search profiling on top of performing actual search requests, within the given domains. At this moment, Search Profiler only supports searches on the Cocktail domain.
 
 ## Long Description...
 Problem: Takeaway wants to provide it's users with an encyclopedia of different food & drink items. Takeaway would like to advertise local restaurants/markets that can provide the searched upon item; within the item encyclopedia entry. There hoping this will help boost sales for the users local restaurants as well as provide another avenue for higher user engagement with Takeaway. Additionally, they want to keep track of every users searches within the encyclopedia so they can provide each user with a tailored experience within the Takeaway domain, based on there interests.
