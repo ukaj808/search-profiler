@@ -5,7 +5,7 @@ Search Profiler is a RESTful (Representational State Transfer) service that prov
 ## Long Description...
 Problem: Takeaway wants to provide it's users with an encyclopedia of different food & drink items. Takeaway would like to advertise local restaurants/markets that can provide the searched upon item; within the item encyclopedia entry. There hoping this will help boost sales for the users local restaurants as well as provide another avenue for higher user engagement with Takeaway. Additionally, they want to keep track of every users searches within the encyclopedia so they can provide each user with a tailored experience within the Takeaway domain, based on there interests.
 
-Solution: The search profiler aims to be a sort of gateway above all the different food & drink APIs leveraged by Takeaway. With this gateway we can asynchronously process every search request against a user/profile and leverage these profiles in hundreds of ways, to our users benefit. Here are a few way's these profiles can come in handy:
+Solution: The search profiler aims to be a sort of gateway above all the different food & drink APIs leveraged by Takeaway. With this gateway we can asynchronously process every search request against a user/profile and leverage these profiles in many of ways, to our users benefit. Here are a few way's these profiles can come in handy:
 
 1. Providing users with there recent search history
 2. Accurately targeted advertising based on the users search profile
