@@ -11,12 +11,14 @@ Solution: The search profiler aims to be a sort of gateway above all the differe
 2. Accurately targeted advertising based on the users search profile
 3. Data analysis on worldwide search trends
 4. Recomendations based on the users search profile
-5. Backloading of caches with specific search key/value pairs when a user logs in to takeaway, using there profile id. This will provide faster subsequent searches on the encyclopedia.
+5. Backloading/Prepping of caches with specific search key/value pairs when a user logs in to Takeaway using there recent searches or what there likely to search for. This will provide faster subsequent searches on the encyclopedia.
 
 ## Tech Stack: Reasoning
-NestJS: The TypeScript version of the Spring Framework where the driving idea is "Dependency Injection" and "Auto Configuration". Using Java for this service provides no high-level beneit compared to NodeJs since there are no computationally heavy tasks being done in this API. Coupled with the fact that it was faster to do a full stack project without having to switch language contexts, since the front end is also built in TypeScript (React).
+NestJS: The TypeScript version of the Spring Framework where the driving idea is "Dependency Injection" and "Auto Configuration". Using Java for this service provides no high-level beneit compared to NodeJs since there are no computationally heavy tasks being done in this API. Coupled with the fact that it was faster to do a full stack project without having to switch language contexts, since the front end is also built in TypeScript (React). It's also worth noting that in my opinion, asynchronous programming in js is easier to read/write, and I wanted to showcase the asynchronous profiling feature.
 
-MongoDB: The search profiles are stored in a free personal arango instance. I chose a document database to help with the speed of  development. Writing a data access layer with TypeScript/MongoDB is very simple with the mongodb typescript libraries. I would ideally use a relational or graph database for this service going forward though.
+MongoDB: The search profiles are stored in a free personal MongoDB instance. I chose a document database to help with the speed of  development. Writing a data access layer with TypeScript/MongoDB is very simple with the mongodb typescript libraries. A case can be made for most database technologies in our case (Cassandra, Relational, Graph) due to the high read and write volume or to account for profile relationships in the future. 
+
+Cache: I'm using an in-memory cache here just to get the idea across; otherwise I would use redis for our caching strategies.
 
 ## Installation
 
